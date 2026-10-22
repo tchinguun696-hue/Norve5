@@ -1,0 +1,220 @@
+<!DOCTYPE html>
+<html lang="mn">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Бүх үнэртэн — НорВэ</title>
+  <meta name="description" content="НорВэ-ийн бүрэн коллекц: брэнд, хэмжээ, концентраци, үнэрийн гэр бүлээр шүүж тансаг үнэртнээ сонгоорой.">
+  <link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 64 64'%3E%3Crect width='64' height='64' rx='12' fill='%230b0b0e'/%3E%3Ctext x='32' y='46' font-family='Georgia,serif' font-size='36' fill='%23d4af37' text-anchor='middle'%3EН%3C/text%3E%3C/svg%3E">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@300;400;500;600;700&family=Playfair+Display:ital,wght@0,400;0,500;0,600;0,700;1,500&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="style.css">
+  <script src="script.js" defer></script>
+</head>
+<body data-page="catalog">
+  <div class="nv-curtain" aria-hidden="true"><span class="nv-line"></span><span class="nv-word">НорВэ</span></div>
+
+  <!-- ======= Толгой (нэвигаци) ======= -->
+  <header class="site-header" id="siteHeader">
+    <div class="container header-inner">
+      <button class="nav-toggle" id="navToggle" aria-label="Цэс нээх"><span></span></button>
+      <a class="logo" href="index.html"><span class="logo-mark"></span><span class="logo-name">НорВэ</span></a>
+      <nav class="main-nav" id="mainNav">
+        <a href="index.html">Нүүр</a>
+        <a href="catalog.html">Бүх үнэртэн</a>
+        <a href="catalog.html#brands">Брэндүүд</a>
+        <a href="account.html">Хэрэглэгч</a>
+      </nav>
+      <form class="nav-search" id="navSearchForm" role="search" autocomplete="off">
+        <input type="text" id="navSearchInput" placeholder="Үнэртэн, брэндээр хайх..." aria-label="Хайх">
+        <button type="submit" aria-label="Хайх">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round"><circle cx="11" cy="11" r="7"/><path d="M21 21l-4.3-4.3"/></svg>
+        </button>
+      </form>
+      <div class="header-actions">
+        <a class="icon-btn" href="account.html" aria-label="Хэрэглэгчийн булан">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="8" r="4"/><path d="M4 21c1.5-4 5-5.5 8-5.5S18.5 17 20 21"/></svg>
+        </a>
+        <button class="icon-btn" id="cartOpenBtn" aria-label="Сагс нээх">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"><path d="M6 7h12l1 13H5L6 7z"/><path d="M9 7a3 3 0 0 1 6 0"/></svg>
+          <span class="cart-count" id="cartCount">0</span>
+        </button>
+      </div>
+    </div>
+  </header>
+
+  <main>
+    <!-- ======= Хуудасны толгой ======= -->
+    <section class="page-head">
+      <div class="container">
+        <p class="crumb"><a href="index.html">Нүүр</a><span>—</span><span>Бүх үнэртэн</span></p>
+        <h1>Бүх <span class="gold">үнэртэн</span></h1>
+        <p>Брэнд, хэмжээ, үнэрийн гэр бүл болон үнийн дүнгээр нэгэн зэрэг шүүж, төгс сонголтоо ол.</p>
+      </div>
+    </section>
+
+    <span id="brands"></span>
+
+    <div class="container catalog-layout">
+      <!-- ======= Шүүлтүүр ======= -->
+      <aside class="filters" id="filtersPanel">
+        <button class="filters-close icon-btn" id="filtersClose" type="button" aria-label="Шүүлтүүр хаах">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round"><path d="M6 6l12 12M18 6L6 18"/></svg>
+        </button>
+        <div class="filters-head">
+          <h2>Шүүлтүүр</h2>
+          <button class="clear-btn" id="clearFiltersBtn" type="button">Цэвэрлэх</button>
+        </div>
+
+        <div class="filter-group">
+          <h3>Хайлт</h3>
+          <div class="fg-body">
+            <input type="text" id="catalogSearch" placeholder="Нэр эсвэл брэндээр хайх...">
+          </div>
+        </div>
+
+        <div class="filter-group">
+          <h3>Брэнд</h3>
+          <div class="fg-body"></div> <!-- JS-ээр дүүргэнэ -->
+        </div>
+
+        <div class="filter-group" id="fgGender">
+          <h3>Төрөл / Хүйс</h3>
+          <div class="fg-body"></div>
+        </div>
+
+        <div class="filter-group" id="fgConc">
+          <h3>Концентраци</h3>
+          <div class="fg-body"></div>
+        </div>
+
+        <div class="filter-group" id="fgSizes">
+          <h3>Хэмжээ</h3>
+          <div class="fg-body"></div> <!-- чипүүд JS-ээр -->
+        </div>
+
+        <div class="filter-group" id="fgFamily">
+          <h3>Үнэрийн гэр бүл</h3>
+          <div class="fg-body"></div>
+        </div>
+
+        <div class="filter-group">
+          <h3>Үнийн дүн</h3>
+          <div class="fg-body">
+            <div class="range-wrap">
+              <div class="range-track"></div>
+              <div class="range-fill" id="rangeFill"></div>
+              <input type="range" id="priceMinRange" aria-label="Хамгийн бага үнэ">
+              <input type="range" id="priceMaxRange" aria-label="Хамгийн их үнэ">
+            </div>
+            <div class="price-inputs">
+              <input type="number" id="priceMinInput" aria-label="Бага үнэ ₮">
+              <i>₮</i>
+              <input type="number" id="priceMaxInput" aria-label="Их үнэ ₮">
+            </div>
+          </div>
+        </div>
+      </aside>
+
+      <!-- ======= Үндсэн хэсэг ======= -->
+      <div class="catalog-main">
+        <div class="catalog-toolbar">
+          <div class="toolbar-left">
+            <button class="btn btn-dark mobile-filter-btn" id="mobileFilterBtn" type="button">
+              Шүүлтүүр
+              <span class="mfb-count" id="mfbCount" style="display:none;">0</span>
+            </button>
+            <span id="resultCount">Нийт 100 бүтээгдэхүүн</span>
+          </div>
+          <div class="sort-wrap">
+            <label for="sortSelect">Эрэмблэх</label>
+            <select id="sortSelect">
+              <option value="rating" selected>Алдартай</option>
+              <option value="priceAsc">Үнэ өсөхөөр</option>
+              <option value="priceDesc">Үнэ буурахаар</option>
+              <option value="new">Шинэ</option>
+            </select>
+          </div>
+        </div>
+
+        <div class="product-grid catalog-grid" id="catalogGrid"></div>
+
+        <div class="empty-catalog" id="catalogEmpty" style="display:none;">
+          <h3>Тохирох үнэртэн олдсонгүй</h3>
+          <p>Шүүлтүүрээ өөрчилж эсвэл хайлтын үгээ солиод дахин оролдоно уу.</p>
+          <button class="btn btn-gold" id="emptyClearBtn" type="button" onclick="document.getElementById('clearFiltersBtn').click()">Шүүлтүүр цэвэрлэх</button>
+        </div>
+
+        <div class="load-wrap" id="loadMoreWrap">
+          <p id="shownInfo"></p>
+          <button class="btn btn-ghost btn-xl" id="loadMoreBtn" type="button">Цааш үзэх</button>
+        </div>
+      </div>
+    </div>
+  </main>
+
+  <!-- ======= Footer ======= -->
+  <footer class="site-footer">
+    <div class="container footer-grid">
+      <div class="f-col f-about">
+        <a class="logo" href="index.html"><span class="logo-mark"></span><span class="logo-name">НорВэ</span></a>
+        <p>Дэлхийн тансаг үнэртний брэндүүдийг эх бүтээгдэхүүний баталгаатайгаар Монголд санал болгодог тансаг ботик.</p>
+        <div class="f-contact">
+          <span><b>Хаяг:</b> Улаанбаатар, Сүхбаатар дүүрэг, 1 хороо</span>
+          <span><b>Утас:</b> 7701-2020</span>
+          <span><b>Ажлын цаг:</b> Даваа–Бямба, 10:00–20:00</span>
+        </div>
+      </div>
+      <div class="f-col">
+        <h4>Хуудсууд</h4>
+        <ul>
+          <li><a href="index.html">Нүүр хуудас</a></li>
+          <li><a href="catalog.html">Бүх үнэртэн</a></li>
+          <li><a href="catalog.html#brands">Брэндүүд</a></li>
+          <li><a href="account.html">Хэрэглэгчийн булан</a></li>
+          <li><a href="checkout.html">Захиалга хийх</a></li>
+        </ul>
+      </div>
+      <div class="f-col">
+        <h4>Дэмжлэг</h4>
+        <ul>
+          <li><a href="#">Хүргэлтийн нөхцөл</a></li>
+          <li><a href="#">Буцаан авах нөхцөл</a></li>
+          <li><a href="#">Нууцлалын бодлого</a></li>
+          <li><a href="#">Үйлчилгээний нөхцөл</a></li>
+        </ul>
+      </div>
+      <div class="f-col f-news">
+        <h4>Мэдээ хүлээн авах</h4>
+        <p>Шинэ үнэртэн болон хямдралын мэдээг хамгийн түрүүнд хүлээн авахыг хүсвэл:</p>
+        <form id="newsletterForm" autocomplete="off">
+          <input type="email" id="newsletterInput" placeholder="И-мэйл хаягаа оруулна уу" aria-label="И-мэйл">
+          <button type="submit" aria-label="Бүртгүүлэх">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"><path d="M22 2L11 13M22 2l-7 20-4-9-9-4 20-7z"/></svg>
+          </button>
+        </form>
+      </div>
+    </div>
+    <div class="footer-bottom">© 2026 НорВэ ХХК — Бүх эрх хуулиар хамгаалагдсан.</div>
+  </footer>
+
+  <!-- ======= Сагсны drawer ======= -->
+  <div class="overlay" id="drawerOverlay"></div>
+  <aside class="cart-drawer" id="cartDrawer" aria-hidden="true">
+    <div class="cd-head">
+      <h3>
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"><path d="M6 7h12l1 13H5L6 7z"/><path d="M9 7a3 3 0 0 1 6 0"/></svg>
+        Сагс
+      </h3>
+      <button class="icon-btn" id="cartCloseBtn" aria-label="Сагс хаах">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round"><path d="M6 6l12 12M18 6L6 18"/></svg>
+      </button>
+    </div>
+    <div class="cd-items" id="cartItems"></div>
+    <div class="cd-foot" id="cartFooter"></div>
+  </aside>
+  <div class="toast-stack" id="toastStack"></div>
+
+</body>
+</html>

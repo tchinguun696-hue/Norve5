@@ -1,0 +1,572 @@
+<!DOCTYPE html>
+<html lang="mn">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>НорВэ админ портал</title>
+  <meta name="description" content="НорВэ админ портал — борлуулалтын шинжилгэ, захиалгын удирдлага, бүтээгдэхүүний сан">
+  <meta name="robots" content="noindex, nofollow">
+  <link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 64 64'%3E%3Crect width='64' height='64' rx='12' fill='%230b0b0e'/%3E%3Ctext x='32' y='46' font-family='Georgia,serif' font-size='36' fill='%23d4af37' text-anchor='middle'%3EН%3C/text%3E%3C/svg%3E">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@300;400;500;600;700&family=Playfair+Display:ital,wght@0,400;0,500;0,600;0,700;1,500&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="style.css">
+  <script src="script.js" defer></script>
+</head>
+<body data-page="admin">
+
+  <!-- ======= Admin Sidebar ======= -->
+  <aside class="admin-sidebar" id="adminSidebar">
+    <div class="sidebar-brand">
+      <a href="#" aria-label="НорВэ админ">
+        <span class="sidebar-logo-mark"></span>
+        <span class="sidebar-logo-name">НорВэ</span>
+      </a>
+    </div>
+    <nav class="sidebar-nav" role="navigation">
+      <ul>
+        <li><a href="#" class="active" data-section="dashboard"><span>Халуун</span></a></li>
+        <li><a href="#" data-section="products"><span>Бүтээгдэхүүн</span></a></li>
+        <li><a href="#" data-section="orders"><span>Захиалга</span></a></li>
+        <li><a href="#" data-section="brands"><span>Брэндүүд</span></a></li>
+        <li><a href="#" data-section="users"><span>Хэрэглэгчид</span></a></li>
+        <li><a href="#" data-section="reports"><span>Тайлан</span></a></li>
+        <li><a href="#" data-section="settings"><span>Тохиргоо</span></a></li>
+        <li><a href="#" data-section="logout"><span>Гарах</span></a></li>
+      </ul>
+      <div class="sidebar-footer">
+        <span>НорВэ админ портал 2026</span>
+      </div>
+    </nav>
+  </aside>
+
+  <!-- ======= Mobile Sidebar Overlay ======= -->
+  <div class="sidebar-overlay" id="sidebarOverlay" aria-hidden="true"></div>
+
+  <!-- ======= Admin Header (only visible when logged in) ======= -->
+  <header class="admin-header" id="adminHeader" style="display:none;">
+    <div class="container header-inner">
+      <button class="nav-toggle" id="adminNavToggle" aria-label="Меню нээх"><span></span></button>
+      <a class="logo" href="#" aria-label="НорВэ админ"><span class="logo-mark"></span><span class="logo-name">НорВэ</span></a>
+      <div class="header-actions">
+        <button class="icon-btn" id="adminLogoutBtn" aria-label="Гарах">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"><path d="M9 21H6a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h3M16 8l5 4-5 4M21 12H9"/></svg>
+          Гарах
+        </button>
+      </div>
+    </div>
+  </header>
+
+  <!-- ======= Admin Login (visible when not logged in) ======= -->
+  <div class="container" id="adminLoginWrap">
+    <div class="auth-card admin-login-card">
+      <p class="eyebrow">Админ нэвтрэлт</p>
+
+      <form id="adminLoginForm" novalidate>
+        <div class="field">
+          <label for="alEmail">И-мэйл хаяг</label>
+          <input type="email" id="alEmail" placeholder="admin@norve.mn" autocomplete="email">
+        </div>
+        <div class="field">
+          <label for="alPass">Нууц үг</label>
+          <input type="password" id="alPass" placeholder="••••••••" autocomplete="current-password">
+        </div>
+        <button class="btn btn-gold btn-wide" type="submit">Портал руу нэвтрэх</button>
+      </form>
+      <p class="al-note">
+        <svg viewBox="0 0 24 24" width="14" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"><path d="M12 3l7 3v6c0 4.5-3 8-7 9-4-1-7-4.5-7-9V6l7-3z"/><path d="M9 12l2 2 4-4"/></svg>
+        Хэрэглэгчийн буланд админ дансаар нэвтэрч буй бол энд автоматаар шилжинэ.
+      </p>
+    </div>
+  </div>
+
+  <!-- ======= Admin Portal (visible when logged in) ======= -->
+  <div class="container" id="adminPortal" style="display:none;">
+
+    <!-- Sidebar-trigger button for mobile -->
+    <button class="sidebar-toggle" id="sidebarToggle" aria-label="Цэс нээх" aria-expanded="false">
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"><path d="M4 6h16M4 12h16M4 18h16"/></svg>
+      <span>Меню</span>
+    </button>
+
+    <!-- ======= DASHBOARD SECTION ======= -->
+    <section id="section-dashboard" class="admin-section active">
+      <!-- KPI Cards -->
+      <section class="panel card-box" id="salesSection">
+        <div class="sec-head-row">
+          <div>
+            <p class="eyebrow">Борлуулалтын шинжилгэ</p>
+            <h2>Худалдааны <span class="gold">хураангуй</span></h2>
+          </div>
+        </div>
+        <div class="kpi-grid" id="kpiGrid">
+          <!-- KPI cards will be rendered by JS -->
+        </div>
+      </section>
+
+      <!-- Charts & Analytics -->
+      <div class="analytics-cols">
+        <section class="panel card-box" id="bestSellersSection">
+          <div class="sec-head-row slim">
+            <div>
+              <p class="eyebrow">Шилдэг 10</p>
+              <h3>Хамгийн их зарагдсан <span class="gold">үнэртэн</span></h3>
+            </div>
+          </div>
+          <div id="topSellersList" class="bs-list"></div>
+        </section>
+
+        <section class="panel card-box" id="brandSection">
+          <div class="sec-head-row slim">
+            <div>
+              <p class="eyebrow">Хувь слав</p>
+              <h3>Брэндийн борлуулалтын <span class="gold">үзүүлэлт</span></h3>
+            </div>
+          </div>
+          <div id="brandBreakdown" class="br-list"></div>
+        </section>
+      </div>
+
+      <!-- Recent Orders -->
+      <section class="panel card-box" id="recentOrdersSection">
+        <div class="sec-head-row slim">
+          <div>
+            <p class="eyebrow">Сүүлийн захиалгууд</p>
+            <h3>Шинэ <span class="gold">захиалгууд</span></h3>
+          </div>
+        </div>
+        <div id="recentOrdersList" class="oq-list"></div>
+      </section>
+    </section>
+
+    <!-- ======= PRODUCTS SECTION ======= -->
+    <section id="section-products" class="admin-section">
+      <div class="admin-head">
+        <div>
+          <p class="eyebrow">Шууд засварлах бүтээгдэхүүний сан</p>
+          <h3>Бүх үнэртэн <span class="gold">удирдах</span></h3>
+          <p class="cb-sub">«Засах» дээр нэр, брэнд, үнэ, зураг, тайлбар болон ноотуудыг шууд засаарай — өөрчлөлт бүх хуудсанд шууд нийлнэ.</p>
+        </div>
+        <div class="admin-stats">
+          <div><b id="adminCount">100</b><small>Нийт бүтээгдэхүүн</small></div>
+          <div><b id="adminEditedCount">0</b><small>Засварласан</small></div>
+          <div><b id="adminAddedCount">0</b><small>Шинээр нэмсэн</small></div>
+        </div>
+      </div>
+      <div class="admin-tools">
+        <input type="text" id="adminSearch" placeholder="Нэр эсвэл брэндээр хайх...">
+        <div class="at-btns">
+          <button class="btn btn-gold" id="adminAddBtn" type="button">
+            <svg viewBox="0 0 24 24" width="15" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round"><path d="M12 5v14M5 12h14"/></svg>
+            Шинэ бүтээгдэхүүн нэмэх
+          </button>
+          <button class="btn btn-ghost" id="adminResetBtn" type="button">
+            <svg viewBox="0 0 24 24" width="15" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"><path d="M3 12a9 9 0 1 0 3-6.7"/><path d="M3 4v5h5"/></svg>
+            Анхны төлөвт буцаах
+          </button>
+        </div>
+      </div>
+      <div class="admin-table" id="adminTable">
+        <div class="at-row at-head">
+          <span>Зураг</span><span>Бүтээгдэхүүн</span><span>Суурь үнэ (30мл)</span><span>Зарагдсан</span><span>Үйлдэл</span>
+        </div>
+        <div id="adminTableBody"></div>
+      </div>
+    </section>
+
+    <!-- ======= ORDERS SECTION ======= -->
+    <section id="section-orders" class="admin-section">
+      <div class="admin-head">
+        <div>
+          <p class="eyebrow">Захиалгын удирдлага</p>
+          <h3>Бүх <span class="gold">захиалгууд</span></h3>
+        </div>
+      </div>
+      <div class="admin-tools">
+        <div class="filter-row">
+          <input type="text" id="orderSearch" placeholder="Захиалгын дугаар, нэр, утас...">
+          <select id="orderStatusFilter">
+            <option value="">Бүх төлөв</option>
+          </select>
+          <select id="orderPayFilter">
+            <option value="">Бүх төлбөрийн төлөв</option>
+          </select>
+          <select id="orderDateFilter">
+            <option value="">Бүх хугацаа</option>
+            <option value="today">Өнөөдөр</option>
+            <option value="week">Сүүлийн 7 хоног</option>
+            <option value="month">Сүүлийн 30 хоног</option>
+            <option value="thisMonth">Энэ сар</option>
+          </select>
+          <button class="btn btn-ghost" id="ordersCsvBtn" type="button">
+            <svg viewBox="0 0 24 24" width="15" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"><path d="M12 3v12m0 0l-4-4m4 4l4-4M4 17v2a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2v-2"/></svg>
+            CSV татаж авах
+          </button>
+        </div>
+      </div>
+      <div class="admin-table" id="ordersTable">
+        <div class="at-row at-head">
+          <span>Дугаар · Огноо</span><span>Харилцагч</span><span>Бүтээгдэхүүн</span><span>Нийт дүн</span><span>Төлбөр</span><span>Төлөв</span>
+        </div>
+        <div id="ordersTableBody"></div>
+      </div>
+    </section>
+
+    <!-- ======= BRANDS SECTION ======= -->
+    <section id="section-brands" class="admin-section">
+      <div class="admin-head">
+        <div>
+          <p class="eyebrow">Брэндийн удирдлага</p>
+          <h3>Бүх <span class="gold">брэндүүд</span></h3>
+        </div>
+        <div class="at-btns">
+          <button class="btn btn-gold" id="brandAddBtn" type="button">
+            <svg viewBox="0 0 24 24" width="15" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round"><path d="M12 5v14M5 12h14"/></svg>
+            Шинэ брэнд нэмэх
+          </button>
+        </div>
+      </div>
+      <div class="admin-table" id="brandsTable">
+        <div class="at-row at-head">
+          <span>Брэнд</span><span>Бүтээгдэхүүн</span><span>Зарагдсан</span><span>Борлуулалтын орлого</span><span>Үйлдэл</span>
+        </div>
+        <div id="brandsTableBody"></div>
+      </div>
+    </section>
+
+    <!-- ======= USERS SECTION ======= -->
+    <section id="section-users" class="admin-section">
+      <div class="admin-head">
+        <div>
+          <p class="eyebrow">Хэрэглэгчийн удирдлага</p>
+          <h3>Бүртгэлтэй <span class="gold">хэрэглэгчид</span></h3>
+        </div>
+      </div>
+      <div class="admin-tools">
+        <input type="text" id="userSearch" placeholder="Нэр, и-мэйл, утасаар хайх...">
+      </div>
+      <div class="admin-table" id="usersTable">
+        <div class="at-row at-head">
+          <span>Хэрэглэгч</span><span>И-мэйл · Утас</span><span>Бүртгүүлсэн</span><span>Нийт захиалга</span><span>Биелсэн</span><span>Нийт орлого</span><span>Сүүлчийн захиалга</span>
+        </div>
+        <div id="usersTableBody"></div>
+      </div>
+    </section>
+
+    <!-- ======= REPORTS SECTION ======= -->
+    <section id="section-reports" class="admin-section">
+      <div class="admin-head">
+        <div>
+          <p class="eyebrow">Борлуулалтын тайлан</p>
+          <h3>Үзүүлэлтийн <span class="gold">тайлан</span></h3>
+        </div>
+      </div>
+      <div class="report-filters">
+        <div class="filter-group-inline">
+          <label>Хугацаа:</label>
+          <select id="reportPeriod">
+            <option value="today">Өнөөдөр</option>
+            <option value="week" selected>Сүүлийн 7 хоног</option>
+            <option value="month">Сүүлийн 30 хоног</option>
+            <option value="thisMonth">Энэ сар</option>
+            <option value="custom">Өөрийн хугацаа</option>
+          </select>
+        </div>
+        <div class="filter-group-inline custom-date-range" style="display:none;">
+          <label>Эхлэх:</label>
+          <input type="date" id="reportStartDate">
+          <label>Дуусах:</label>
+          <input type="date" id="reportEndDate">
+        </div>
+        <button class="btn btn-gold" id="reportGenerateBtn" type="button">
+          <svg viewBox="0 0 24 24" width="15" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/><path d="M14 2v6h6"/><path d="M16 13H8"/><path d="M16 17H8"/><path d="M10 9H8"/></svg>
+          Тайлан үүсгэх
+        </button>
+        <button class="btn btn-ghost" id="reportExportBtn" type="button">
+          <svg viewBox="0 0 24 24" width="15" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/><path d="M7 10l5 5 5-5"/><path d="M12 15V3"/></svg>
+          CSV татах
+        </button>
+      </div>
+      <div class="report-summary" id="reportSummary">
+        <!-- Summary cards will be rendered here -->
+      </div>
+      <div class="panel card-box">
+        <div class="sec-head-row slim">
+          <div>
+            <h3>Захиалгын дэлгэрэнгүй</h3>
+          </div>
+        </div>
+        <div class="admin-table" id="reportOrdersTable">
+          <div class="at-row at-head">
+            <span>Дугаар</span><span>Огноо</span><span>Харилцагч</span><span>Бүтээгдэхүүн</span><span>Төлбөр</span><span>Төлөв</span><span>Нийт дүн</span>
+          </div>
+          <div id="reportOrdersTableBody"></div>
+        </div>
+      </div>
+    </section>
+
+    <!-- ======= SETTINGS SECTION ======= -->
+    <section id="section-settings" class="admin-section">
+      <div class="admin-head">
+        <div>
+          <p class="eyebrow">Системийн тохиргоо</p>
+          <h3>Дэлгүүрийн <span class="gold">тохиргоо</span></h3>
+        </div>
+      </div>
+      <div class="settings-grid">
+        <div class="panel card-box">
+          <h3>Захиалгын дугаарыг үүсгэх</h3>
+          <div class="form-grid">
+            <div class="field">
+              <label for="settingOrderPrefix">Эхлэгч</label>
+              <input type="text" id="settingOrderPrefix" value="NRV-" maxlength="10">
+            </div>
+            <div class="field">
+              <label for="settingOrderStart">Эхлэх дугаар</label>
+              <input type="number" id="settingOrderStart" value="100000" min="1">
+            </div>
+          </div>
+        </div>
+        <div class="panel card-box">
+          <h3>Хүргэлтийн үнэ</h3>
+          <div class="form-grid">
+            <div class="field">
+              <label for="settingShipNormal">Энгийн хүргэлт (₮)</label>
+              <input type="number" id="settingShipNormal" value="10000" min="0" step="1000">
+            </div>
+            <div class="field">
+              <label for="settingShipExpress">Шуурхай хүргэлт (₮)</label>
+              <input type="number" id="settingShipExpress" value="15000" min="0" step="1000">
+            </div>
+          </div>
+        </div>
+        <div class="panel card-box">
+          <h3>Төлбөрийн хэлбэрууд</h3>
+          <div class="checkbox-group">
+            <label class="check"><input type="checkbox" id="payQpay" checked><span class="box"></span><span class="txt">QPay</span></label>
+            <label class="check"><input type="checkbox" id="payCard" checked><span class="box"></span><span class="txt">Банкны карт</span></label>
+            <label class="check"><input type="checkbox" id="payBank" checked><span class="box"></span><span class="txt">Дансаар шилжүүлэх</span></label>
+            <label class="check"><input type="checkbox" id="payCash" checked><span class="box"></span><span class="txt">Хүргэлтээр бэлнээр</span></label>
+          </div>
+        </div>
+        <div class="panel card-box">
+          <h3>Банкны дансны мэдээлэл</h3>
+          <div class="form-grid">
+            <div class="field full"><label>ХААН банк</label><input type="text" id="bankKhaan" value="5014 6623 (₮ данс)"></div>
+            <div class="field full"><label>Голомт банк</label><input type="text" id="bankGolomt" value="24 1101 6794 (₮ данс)"></div>
+            <div class="field full"><label>Хас банк</label><input type="text" id="bankHas" value="500 123 4567 (₮ данс)"></div>
+            <div class="field full"><label>Хүлээн авагч</label><input type="text" id="bankReceiver" value="«НорВэ» ХХК"></div>
+          </div>
+        </div>
+        <div class="panel card-box">
+          <div class="at-btns">
+            <button class="btn btn-gold" id="settingsSaveBtn" type="button">
+              <svg viewBox="0 0 24 24" width="15" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round"><path d="M19 21H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h11l5 5v11a2 2 0 0 1-2 2z"/><path d="M17 21v-5a2 2 0 0 1 2-2h5"/></svg>
+              Хадгалах
+            </button>
+          </div>
+        </div>
+      </div>
+    </section>
+
+  </div>
+
+  <!-- ======= Footer (only on main site, hidden on admin) ======= -->
+  <footer class="site-footer" style="display:none;">
+    <div class="container footer-grid">
+      <div class="f-col f-about">
+        <a class="logo" href="index.html"><span class="logo-mark"></span><span class="logo-name">НорВэ</span></a>
+        <p>Дэлхийн тансаг үнэртний брэндүүдийг эх бүтээгдэхүүний баталгаатайгаар Монголд санал болгодог тансаг ботик.</p>
+        <div class="f-contact">
+          <span><b>Хаяг:</b> Улаанбаатар, Сүхбаатар дүүрэг, 1 хороо</span>
+          <span><b>Утас:</b> 7701-2020</span>
+          <span><b>Ажлын цаг:</b> Даваа–Бямба, 10:00–20:00</span>
+        </div>
+      </div>
+      <div class="f-col">
+        <h4>Хуудсууд</h4>
+        <ul>
+          <li><a href="index.html">Нүүр хуудас</a></li>
+          <li><a href="catalog.html">Бүх үнэртэн</a></li>
+          <li><a href="catalog.html#brands">Брэндүүд</a></li>
+          <li><a href="account.html">Хэрэглэгчийн булан</a></li>
+          <li><a href="checkout.html">Захиалга хийх</a></li>
+        </ul>
+      </div>
+      <div class="f-col">
+        <h4>Дэмжлэг</h4>
+        <ul>
+          <li><a href="#">Хүргэлтийн нөхцөл</a></li>
+          <li><a href="#">Буцаан авах нөхцөл</a></li>
+          <li><a href="#">Нууцлалын бодлого</a></li>
+          <li><a href="#">Үйлчилгээний нөхцөл</a></li>
+        </ul>
+      </div>
+      <div class="f-col f-news">
+        <h4>Мэдээ хүлээн авах</h4>
+        <p>Шинэ үнэртэн болон хямдралын мэдээг хамгийн түрүүнд хүлээн авахыг хүсвэл:</p>
+        <form id="newsletterForm" autocomplete="off">
+          <input type="email" id="newsletterInput" placeholder="И-мэйл хаягаа оруулна уу" aria-label="И-мэйл">
+          <button type="submit" aria-label="Бүртгүүлэх">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"><path d="M22 2L11 13M22 2l-7 20-4-9-9-4 20-7z"/></svg>
+          </button>
+        </form>
+      </div>
+    </div>
+    <div class="footer-bottom">© 2026 НорВэ ХХК — Бүх эрх хуулиар хамгаалагдсан.</div>
+  </footer>
+
+  <!-- ======= Order Detail Modal ======= -->
+  <div class="modal order-detail-modal" id="orderDetailModal" aria-hidden="true">
+    <div class="modal-backdrop" data-close="orderDetail"></div>
+    <div class="modal-card order-detail-card">
+      <button class="icon-btn modal-x" data-close="orderDetail" aria-label="Хаах"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round"><path d="M6 6l12 12M18 6L6 18"/></svg></button>
+      <div id="orderDetailContent"></div>
+    </div>
+  </div>
+
+  <!-- ======= User Detail Modal ======= -->
+  <div class="modal user-detail-modal" id="userDetailModal" aria-hidden="true">
+    <div class="modal-backdrop" data-close="userDetail"></div>
+    <div class="modal-card user-detail-card">
+      <button class="icon-btn modal-x" data-close="userDetail" aria-label="Хаах"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round"><path d="M6 6l12 12M18 6L6 18"/></svg></button>
+      <div id="userDetailContent"></div>
+    </div>
+  </div>
+
+  <!-- ======= Brand Edit Modal ======= -->
+  <div class="modal brand-edit-modal" id="brandEditModal" aria-hidden="true">
+    <div class="modal-backdrop" data-close="brandEdit"></div>
+    <div class="modal-card brand-edit-card">
+      <button class="icon-btn modal-x" data-close="brandEdit" aria-label="Хаах"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round"><path d="M6 6l12 12M18 6L6 18"/></svg></button>
+      <p class="eyebrow" style="margin-bottom:6px;">Брэндийн мэдээлэл</p>
+      <h3 id="brandEditTitle">Брэнд нэмэх</h3>
+      <form id="brandEditForm" novalidate>
+        <div class="form-grid">
+          <div class="field"><label for="brandName">Нэр</label><input type="text" id="brandName" required></div>
+          <div class="field"><label for="brandDescription">Тайлбар</label><textarea id="brandDescription" rows="3"></textarea></div>
+          <div class="field"><label for="brandLogo">Лого URL</label><input type="text" id="brandLogo" placeholder="https://..."></div>
+          <div class="field"><label for="brandWebsite">Вэбсайт</label><input type="text" id="brandWebsite" placeholder="https://..."></div>
+        </div>
+        <div class="am-actions">
+          <button type="submit" class="btn btn-gold"><svg viewBox="0 0 24 24" width="15" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M20 6L9 17l-5-5"/></svg> Хадгалах</button>
+          <button type="button" class="btn btn-ghost" data-close="brandEdit">Цуцлах</button>
+        </div>
+      </form>
+    </div>
+  </div>
+
+  <!-- ======= Жагсаалтын модал (KPI товчноос нээгдэх захиалгын жагсаалт) ======= -->
+  <div class="modal nv-list-modal" id="nvListModal" aria-hidden="true">
+    <div class="modal-backdrop" data-close="nvl"></div>
+    <div class="modal-card nv-list-card" id="nvListModalCard">
+      <button class="icon-btn modal-x" data-close="nvl" aria-label="Хаах"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round"><path d="M6 6l12 12M18 6L6 18"/></svg></button>
+      <p class="eyebrow">Жагсаалт</p>
+      <h3 id="nvListModalTitle">Захиалгууд</h3>
+      <p class="nvl-count" id="nvListModalCount">0</p>
+      <div class="nvl-body" id="nvListModalBody"></div>
+    </div>
+  </div>
+
+  <!-- ======= Сагсны drawer ======= -->
+  <div class="overlay" id="drawerOverlay"></div>
+  <aside class="cart-drawer" id="cartDrawer" aria-hidden="true">
+    <div class="cd-head">
+      <h3>
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"><path d="M6 7h12l1 13H5L6 7z"/><path d="M9 7a3 3 0 0 1 6 0"/></svg>
+        Сагс
+      </h3>
+      <button class="icon-btn" id="cartCloseBtn" aria-label="Сагс хаах">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round"><path d="M6 6l12 12M18 6L6 18"/></svg>
+      </button>
+    </div>
+    <div class="cd-items" id="cartItems"></div>
+    <div class="cd-foot" id="cartFooter"></div>
+  </aside>
+  <div class="toast-stack" id="toastStack"></div>
+
+  <!-- ======= Section Toggle Script ======= -->
+  <script>
+    document.addEventListener('DOMContentLoaded', () => {
+      const sidebarLinks = document.querySelectorAll('.sidebar-nav a');
+      const sections = document.querySelectorAll('.admin-section');
+      
+      if (!sidebarLinks.length || !sections.length) return;
+      
+      function showSection(sectionId) {
+        sections.forEach(section => section.classList.remove('active'));
+        const section = document.querySelector(`#section-${sectionId}`);
+        if (section) section.classList.add('active');
+        
+        // Trigger render for the section
+        if (window.adminSectionRenderers && window.adminSectionRenderers[sectionId]) {
+          window.adminSectionRenderers[sectionId]();
+        }
+      }
+      
+      sidebarLinks.forEach(link => {
+        link.addEventListener('click', (e) => {
+          e.preventDefault();
+          sidebarLinks.forEach(l => l.classList.remove('active'));
+          link.classList.add('active');
+          
+          const sectionName = link.dataset.section || 
+            link.textContent.replace(/[^\x00-\x7F]/g, '').trim().toLowerCase();
+          
+          if (sectionName === 'logout') {
+            if (window.logoutAdmin) window.logoutAdmin();
+            return;
+          }
+          
+          showSection(sectionName);
+          // Мобайл drawer дээр сонголтын дараа цэсийг хаана
+          if (typeof closeAdminNav === 'function') closeAdminNav();
+        });
+      });
+      
+      // Mobile sidebar drawer нээх/хаах
+      const sidebarToggle = document.getElementById('sidebarToggle');
+      const sidebarOverlay = document.getElementById('sidebarOverlay');
+      const adminNavToggle = document.getElementById('adminNavToggle');
+      const adminSidebar = document.getElementById('adminSidebar');
+
+      function openAdminNav() {
+        adminSidebar.classList.add('open');
+        sidebarOverlay.classList.add('show');
+        document.body.classList.add('no-scroll');
+        if (sidebarToggle) sidebarToggle.setAttribute('aria-expanded', 'true');
+      }
+      function closeAdminNav() {
+        adminSidebar.classList.remove('open');
+        sidebarOverlay.classList.remove('show');
+        document.body.classList.remove('no-scroll');
+        if (sidebarToggle) sidebarToggle.setAttribute('aria-expanded', 'false');
+      }
+
+      if (sidebarToggle && sidebarOverlay && adminSidebar) {
+        // Дэд хамгаалалт: эхлэлд drawer хаалттай байна
+        closeAdminNav();
+        sidebarToggle.addEventListener('click', () => {
+          if (adminSidebar.classList.contains('open')) closeAdminNav();
+          else openAdminNav();
+        });
+        // Толгойны hamburger мөн ижил drawer-г нээнэ (том утас/таблет)
+        adminNavToggle?.addEventListener('click', () => {
+          if (adminSidebar.classList.contains('open')) closeAdminNav();
+          else openAdminNav();
+        });
+        // Гадна талд дарахад хаагдана
+        sidebarOverlay.addEventListener('click', closeAdminNav);
+        // Escape дээр хаагдана
+        document.addEventListener('keydown', (e) => {
+          if (e.key === 'Escape') closeAdminNav();
+        });
+      }
+
+      // Initially show dashboard
+      showSection('dashboard');
+    });
+  </script>
+
+</body>
+</html>

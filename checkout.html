@@ -1,0 +1,326 @@
+<!DOCTYPE html>
+<html lang="mn">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Захиалга хийх — НорВэ</title>
+  <meta name="description" content="Аюулгүй, хурдан захиалгын талбар — хүргэлт ба төлбөрийн сонголтуудтай.">
+  <link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 64 64'%3E%3Crect width='64' height='64' rx='12' fill='%230b0b0e'/%3E%3Ctext x='32' y='46' font-family='Georgia,serif' font-size='36' fill='%23d4af37' text-anchor='middle'%3EН%3C/text%3E%3C/svg%3E">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@300;400;500;600;700&family=Playfair+Display:ital,wght@0,400;0,500;0,600;0,700;1,500&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="style.css">
+  <script src="script.js" defer></script>
+</head>
+<body data-page="checkout">
+  <div class="nv-curtain" aria-hidden="true"><span class="nv-line"></span><span class="nv-word">НорВэ</span></div>
+
+  <!-- ======= Толгой (нэвигаци) ======= -->
+  <header class="site-header" id="siteHeader">
+    <div class="container header-inner">
+      <button class="nav-toggle" id="navToggle" aria-label="Цэс нээх"><span></span></button>
+      <a class="logo" href="index.html"><span class="logo-mark"></span><span class="logo-name">НорВэ</span></a>
+      <nav class="main-nav" id="mainNav">
+        <a href="index.html">Нүүр</a>
+        <a href="catalog.html">Бүх үнэртэн</a>
+        <a href="catalog.html#brands">Брэндүүд</a>
+        <a href="account.html">Хэрэглэгч</a>
+      </nav>
+      <form class="nav-search" id="navSearchForm" role="search" autocomplete="off">
+        <input type="text" id="navSearchInput" placeholder="Үнэртэн, брэндээр хайх..." aria-label="Хайх">
+        <button type="submit" aria-label="Хайх">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round"><circle cx="11" cy="11" r="7"/><path d="M21 21l-4.3-4.3"/></svg>
+        </button>
+      </form>
+      <div class="header-actions">
+        <a class="icon-btn" href="account.html" aria-label="Хэрэглэгчийн булан">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="8" r="4"/><path d="M4 21c1.5-4 5-5.5 8-5.5S18.5 17 20 21"/></svg>
+        </a>
+        <button class="icon-btn" id="cartOpenBtn" aria-label="Сагс нээх">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"><path d="M6 7h12l1 13H5L6 7z"/><path d="M9 7a3 3 0 0 1 6 0"/></svg>
+          <span class="cart-count" id="cartCount">0</span>
+        </button>
+      </div>
+    </div>
+  </header>
+
+  <main>
+    <section class="page-head">
+      <div class="container">
+        <p class="crumb"><a href="index.html">Нүүр</a><span>—</span><a href="catalog.html">Бүх үнэртэн</a><span>—</span><span>Захиалга</span></p>
+        <h1>Хүргэлт ба <span class="gold">төлбөр</span></h1>
+      </div>
+    </section>
+
+    <div class="container">
+      <!-- Захиалгын үе шат -->
+      <div class="steps">
+        <div class="step active"><span class="dot">1</span><span class="lb">Хүргэлт</span></div>
+        <div class="step-line"></div>
+        <div class="step active"><span class="dot">2</span><span class="lb">Төлбөр</span></div>
+        <div class="step-line"></div>
+        <div class="step active"><span class="dot">3</span><span class="lb">Баталгаажуулалт</span></div>
+      </div>
+
+      <!-- Хоосон сагсны мэдэгдэл -->
+      <div class="empty-catalog" id="checkoutEmpty" style="display:none; margin-bottom:100px;">
+        <h3>Сагсан дотор бүтээгдэхүүн байхгүй</h3>
+        <p>Захиалга хийхийн өмнө тансаг сонголтоо сагсандаа нэмнэ үү.</p>
+        <a class="btn btn-gold" href="catalog.html">Дэлгүүр рүү очих</a>
+      </div>
+    </div>
+
+    <div class="container checkout-layout" id="checkoutLayout">
+      <!-- ======= Зүүн: хэлбэрүүд ======= -->
+      <form id="checkoutForm" novalidate>
+        <!-- 1. Хүргэлт -->
+        <div class="step-card">
+          <h2>Хүргэлтийн мэдээлэл</h2>
+          <p class="sc-sub">Захиалга таны байгаа яг хаягт хүргэгдэхийн тулд доорх талбаруудыг зөв бөглөнө үү.</p>
+
+          <div id="savedAddresses" class="addr-chips" style="display:none;"></div>
+
+          <div class="form-grid">
+            <div class="field">
+              <label for="fName">Хүлээн авагчийн нэр овог</label>
+              <input type="text" id="fName" placeholder="Батаа Дорж" required>
+            </div>
+            <div class="field">
+              <label for="fPhone">Утасны дугаар</label>
+              <input type="tel" id="fPhone" placeholder="99112233" maxlength="8" required>
+            </div>
+            <div class="field">
+              <label for="fCity">Хот / Аймаг</label>
+              <select id="fCity"></select>
+            </div>
+            <div class="field">
+              <label for="fDistrict">Дүүрэг / Сум</label>
+              <select id="fDistrict"></select>
+            </div>
+            <div class="field">
+              <label for="fKhoroo">Хороо / Баг</label>
+              <input type="text" id="fKhoroo" placeholder="1-р хороо">
+            </div>
+            <div class="field">
+              <label for="fApartment">Байр, гудамж, тоот</label>
+              <input type="text" id="fApartment" placeholder="17-р байр, 3 тоот">
+            </div>
+            <div class="field full">
+              <label for="fNote">Нэмэлт тайлбар</label>
+              <textarea id="fNote" placeholder="Жишээ нь: Өдрийн 12:00-с өмнө хүргэлт шаардлагатай"></textarea>
+            </div>
+          </div>
+
+          <div class="ship-row">
+            <div class="ship-opt">
+              <input type="radio" name="shipType" id="shipNormal" value="normal" checked>
+              <label for="shipNormal">
+                <b>Энгийн хүргэлт</b>
+                <span>2–3 хоногийн дотор · 10 000 ₮</span>
+              </label>
+            </div>
+            <div class="ship-opt">
+              <input type="radio" name="shipType" id="shipExpress" value="express">
+              <label for="shipExpress">
+                <b>Шуурхай хүргэлт</b>
+                <span>24 цагийн дотор · 15 000 ₮</span>
+              </label>
+            </div>
+          </div>
+        </div>
+
+        <!-- 2. Төлбөр -->
+        <div class="step-card">
+          <h2>Төлбөрийн арга</h2>
+          <p class="sc-sub">Танд хамгийн ээлтэй төлбөрийн хэлбэрийг доороос сонгоорой.</p>
+
+          <div class="pay-tabs">
+            <button type="button" class="pay-tab active" data-pay="qpay">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7"><rect x="4" y="4" width="6" height="6" rx="1"/><rect x="14" y="4" width="6" height="6" rx="1"/><rect x="4" y="14" width="6" height="6" rx="1"/><path d="M14 14h3v3h-3zM20 14v6M14 20h3"/></svg>
+              QPay
+            </button>
+            <button type="button" class="pay-tab" data-pay="card">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round"><rect x="3" y="6" width="18" height="13" rx="2"/><path d="M3 10h18"/></svg>
+              Банкны карт
+            </button>
+            <button type="button" class="pay-tab" data-pay="bank">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"><path d="M3 10l9-6 9 6M5 10v9M9.5 10v9M14.5 10v9M19 10v9M3 19h18"/></svg>
+              Дансаар
+            </button>
+            <button type="button" class="pay-tab" data-pay="cash">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round"><rect x="2" y="7" width="20" height="11" rx="2"/><circle cx="12" cy="12.5" r="2.6"/><path d="M5 10h.01M19 15h.01"/></svg>
+              Бэлнээр
+            </button>
+          </div>
+
+          <!-- QPay -->
+          <div class="pay-panel active" id="pay-qpay">
+            <div class="qpay-box">
+              <canvas id="qrCanvas" width="220" height="220" aria-label="Төлбөрийн хиймэл QR код"></canvas>
+              <p class="qpay-amount" id="qpayAmount">0 ₮</p>
+              <p class="qpay-note">Банкны мобайл апп дээрээ QPay-г сонгон, QR кодыг уншуулж төлбөрөө төлнэ үү.</p>
+            </div>
+          </div>
+
+          <!-- Карт -->
+          <div class="pay-panel" id="pay-card">
+            <p class="pay-hint">Туршилтын горим — картын мэдээлэл зөвхөн харагдах байдлаар харуулах бөгөөд хадгалагдахгүй.</p>
+            <div class="card-visual">
+              <span class="cv-dot"></span>
+              <span class="cv-num" id="cvNum">0000 0000 0000 0000</span>
+              <div class="cv-row">
+                <span>Эзэмшигч<br><b id="cvName">НЭР ОВОГ</b></span>
+                <span>Хүчинтэй хугацаа<br><b id="cvExp">MM/YY</b></span>
+              </div>
+            </div>
+            <div class="form-grid">
+              <div class="field full">
+                <label for="fCardNum">Картын дугаар</label>
+                <input type="text" id="fCardNum" inputmode="numeric" placeholder="0000 0000 0000 0000">
+              </div>
+              <div class="field">
+                <label for="fCardName">Карт эзэмшигчийн нэр</label>
+                <input type="text" id="fCardName" placeholder="БАТАА ДОРЖ" style="text-transform:uppercase;">
+              </div>
+              <div class="field">
+                <label>Хүчинтэй хугацаа ба аюулгүй код</label>
+                <div style="display:flex; gap:10px;">
+                  <input type="text" id="fCardExp" inputmode="numeric" placeholder="MM/YY">
+                  <input type="password" id="fCardCvv" inputmode="numeric" placeholder="•••" maxlength="3" aria-label="Аюулгүй код">
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <!-- Дансаар -->
+          <div class="pay-panel" id="pay-bank">
+            <p class="pay-hint">Доорх данс руу нийт дүнг шилжүүлсний дараа захиалгаа батлуулах хэрэгтэй.</p>
+            <div class="bank-list">
+              <div class="bank-row">
+                <div class="bl"><b>ХААН банк</b><span>5014 6623 (₮ данс)</span></div>
+                <button type="button" class="copy-btn" data-copy="50146623">Хуулах</button>
+              </div>
+              <div class="bank-row">
+                <div class="bl"><b>Голомт банк</b><span>24 1101 6794 (₮ данс)</span></div>
+                <button type="button" class="copy-btn" data-copy="2411016794">Хуулах</button>
+              </div>
+              <div class="bank-row">
+                <div class="bl"><b>Хас банк</b><span>500 123 4567 (₮ данс)</span></div>
+                <button type="button" class="copy-btn" data-copy="5001234567">Хуулах</button>
+              </div>
+              <div class="bank-row">
+                <div class="bl"><b>Хүлээн авагч</b><span>«НорВэ» ХХК</span></div>
+              </div>
+            </div>
+          </div>
+
+          <!-- Бэлнээр -->
+          <div class="pay-panel" id="pay-cash">
+            <div class="cod-note">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"><path d="M2 6h13v11H2zM15 10h4l3 3v4h-7z"/><circle cx="6.5" cy="17" r="1.6"/><circle cx="17.5" cy="17" r="1.6"/></svg>
+              <span>Төлбөрийг курьераар бэлнээр төлнө үү. Курьер хаягт ирэхэд бэлэн мөнгөө шууд гаргаарай.</span>
+            </div>
+          </div>
+        </div>
+
+        <!-- Батлах -->
+        <button class="btn btn-gold btn-xl btn-wide" id="placeOrder" type="submit">Захиалгаа баталгаажуулах</button>
+        <p class="checkout-note">Захиалга хийснээр үйлчилгээний нөхцөлийг зөвшөөрсөнд тооцно.</p>
+      </form>
+
+      <!-- ======= Баруун: захиалгын хураангуй ======= -->
+      <aside class="order-summary">
+        <h2>Таны захиалга</h2>
+        <div class="os-items" id="sumItems"></div>
+        <div class="os-line"><span>Сагслалтын дүн</span><span id="sumSub">0 ₮</span></div>
+        <div class="os-line"><span>Хүргэлт</span><span id="sumShip">10 000 ₮</span></div>
+        <div class="os-line total"><span>Нийт төлөх дүн</span><b id="sumTotal">0 ₮</b></div>
+      </aside>
+    </div>
+  </main>
+
+  <!-- ======= Захиалгын баталгаа modal ======= -->
+  <div class="modal" id="orderModal" aria-hidden="true">
+    <div class="modal-backdrop"></div>
+    <div class="modal-card">
+      <button class="icon-btn modal-x" id="orderModalClose" aria-label="Хаах">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round"><path d="M6 6l12 12M18 6L6 18"/></svg>
+      </button>
+      <div class="m-success-icon">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M4 12.5l5 5L20 6.5"/></svg>
+      </div>
+      <h3>Амжилттай!</h3>
+      <p class="m-sub">Таны захиалга амжилттай бүртгэгдлээ. Бид тантай утсаар холбогдож хүргэлтийн цагийг тохирно.</p>
+      <div class="m-order-id"><small>Захиалгын дугаар</small><b id="mOrderId">NRV-000000</b></div>
+      <div class="m-rows" id="mRows"></div>
+      <div class="modal-actions">
+        <a class="btn btn-gold" href="account.html">Захиалгын түүх үзэх</a>
+        <a class="btn btn-ghost" href="index.html">Нүүр хуудас руу</a>
+      </div>
+    </div>
+  </div>
+
+  <!-- ======= Footer ======= -->
+  <footer class="site-footer">
+    <div class="container footer-grid">
+      <div class="f-col f-about">
+        <a class="logo" href="index.html"><span class="logo-mark"></span><span class="logo-name">НорВэ</span></a>
+        <p>Дэлхийн тансаг үнэртний брэндүүдийг эх бүтээгдэхүүний баталгаатайгаар Монголд санал болгодог тансаг ботик.</p>
+        <div class="f-contact">
+          <span><b>Хаяг:</b> Улаанбаатар, Сүхбаатар дүүрэг, 1 хороо</span>
+          <span><b>Утас:</b> 7701-2020</span>
+          <span><b>Ажлын цаг:</b> Даваа–Бямба, 10:00–20:00</span>
+        </div>
+      </div>
+      <div class="f-col">
+        <h4>Хуудсууд</h4>
+        <ul>
+          <li><a href="index.html">Нүүр хуудас</a></li>
+          <li><a href="catalog.html">Бүх үнэртэн</a></li>
+          <li><a href="catalog.html#brands">Брэндүүд</a></li>
+          <li><a href="account.html">Хэрэглэгчийн булан</a></li>
+          <li><a href="checkout.html">Захиалга хийх</a></li>
+        </ul>
+      </div>
+      <div class="f-col">
+        <h4>Дэмжлэг</h4>
+        <ul>
+          <li><a href="#">Хүргэлтийн нөхцөл</a></li>
+          <li><a href="#">Буцаан авах нөхцөл</a></li>
+          <li><a href="#">Нууцлалын бодлого</a></li>
+          <li><a href="#">Үйлчилгээний нөхцөл</a></li>
+        </ul>
+      </div>
+      <div class="f-col f-news">
+        <h4>Мэдээ хүлээн авах</h4>
+        <p>Шинэ үнэртэн болон хямдралын мэдээг хамгийн түрүүнд хүлээн авахыг хүсвэл:</p>
+        <form id="newsletterForm" autocomplete="off">
+          <input type="email" id="newsletterInput" placeholder="И-мэйл хаягаа оруулна уу" aria-label="И-мэйл">
+          <button type="submit" aria-label="Бүртгүүлэх">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"><path d="M22 2L11 13M22 2l-7 20-4-9-9-4 20-7z"/></svg>
+          </button>
+        </form>
+      </div>
+    </div>
+    <div class="footer-bottom">© 2026 НорВэ ХХК — Бүх эрх хуулиар хамгаалагдсан.</div>
+  </footer>
+
+  <!-- ======= Сагсны drawer ======= -->
+  <div class="overlay" id="drawerOverlay"></div>
+  <aside class="cart-drawer" id="cartDrawer" aria-hidden="true">
+    <div class="cd-head">
+      <h3>
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"><path d="M6 7h12l1 13H5L6 7z"/><path d="M9 7a3 3 0 0 1 6 0"/></svg>
+        Сагс
+      </h3>
+      <button class="icon-btn" id="cartCloseBtn" aria-label="Сагс хаах">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round"><path d="M6 6l12 12M18 6L6 18"/></svg>
+      </button>
+    </div>
+    <div class="cd-items" id="cartItems"></div>
+    <div class="cd-foot" id="cartFooter"></div>
+  </aside>
+  <div class="toast-stack" id="toastStack"></div>
+
+</body>
+</html>

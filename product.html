@@ -1,0 +1,297 @@
+<!DOCTYPE html>
+<html lang="mn">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Бүтээгдэхүүн — НорВэ</title>
+  <meta name="description" content="Үнэртний дэлгэрэнгүй: үнэрийн шатлал, хэмжээ, үнийн дэлгэрэнгүй мэдээлэл — НорВэ тансаг ботик.">
+  <link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 64 64'%3E%3Crect width='64' height='64' rx='12' fill='%230b0b0e'/%3E%3Ctext x='32' y='46' font-family='Georgia,serif' font-size='36' fill='%23d4af37' text-anchor='middle'%3EН%3C/text%3E%3C/svg%3E">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@300;400;500;600;700&family=Playfair+Display:ital,wght@0,400;0,500;0,600;0,700;1,500&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="style.css">
+  <script src="script.js" defer></script>
+</head>
+<body data-page="product">
+  <div class="nv-curtain" aria-hidden="true"><span class="nv-line"></span><span class="nv-word">НорВэ</span></div>
+
+  <!-- ======= Толгой (нэвигаци) ======= -->
+  <header class="site-header" id="siteHeader">
+    <div class="container header-inner">
+      <button class="nav-toggle" id="navToggle" aria-label="Цэс нээх"><span></span></button>
+      <a class="logo" href="index.html"><span class="logo-mark"></span><span class="logo-name">НорВэ</span></a>
+      <nav class="main-nav" id="mainNav">
+        <a href="index.html">Нүүр</a>
+        <a href="catalog.html">Бүх үнэртэн</a>
+        <a href="catalog.html#brands">Брэндүүд</a>
+        <a href="account.html">Хэрэглэгч</a>
+      </nav>
+      <form class="nav-search" id="navSearchForm" role="search" autocomplete="off">
+        <input type="text" id="navSearchInput" placeholder="Үнэртэн, брэндээр хайх..." aria-label="Хайх">
+        <button type="submit" aria-label="Хайх">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round"><circle cx="11" cy="11" r="7"/><path d="M21 21l-4.3-4.3"/></svg>
+        </button>
+      </form>
+      <div class="header-actions">
+        <a class="icon-btn" href="account.html" aria-label="Хэрэглэгчийн булан">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="8" r="4"/><path d="M4 21c1.5-4 5-5.5 8-5.5S18.5 17 20 21"/></svg>
+        </a>
+        <button class="icon-btn" id="cartOpenBtn" aria-label="Сагс нээх">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"><path d="M6 7h12l1 13H5L6 7z"/><path d="M9 7a3 3 0 0 1 6 0"/></svg>
+          <span class="cart-count" id="cartCount">0</span>
+        </button>
+      </div>
+    </div>
+  </header>
+
+  <main>
+    <!-- ======= Хуудасны толгой ======= -->
+    <section class="page-head">
+      <div class="container">
+        <p class="crumb">
+          <a href="index.html">Нүүр</a><span>—</span>
+          <a href="catalog.html">Бүх үнэртэн</a><span>—</span>
+          <span id="pvBreadBrand">Бүтээгдэхүүн</span>
+        </p>
+      </div>
+    </section>
+
+    <!-- ======= Бүтээгдэхүүний үндсэн хэсэг ======= -->
+    <div class="container">
+      <div class="no-product" id="productNotFound" style="display:none;">
+        <h2 style="margin-bottom:10px;">Бүтээгдэхүүн олдсонгүй</h2>
+        <p style="color:var(--muted); margin-bottom:22px;">Хүссэн үнэртэн байхгүй эсвэл ID буруу орж ирсэн байна.</p>
+        <a class="btn btn-gold" href="catalog.html">Бүх үнэртэн үзэх</a>
+      </div>
+
+      <section class="product-view" id="productView">
+        <div class="pv-media">
+          <span class="badge-new" id="pvBadge">Шинэ</span>
+          <img id="pvImg" src="https://images.unsplash.com/photo-1541643600914-78b084683601?q=80&w=900&auto=format&fit=crop" alt="Үнэртний лонх">
+        </div>
+
+        <div class="pv-info">
+          <p class="pv-brand" id="pvBrand"></p>
+          <h1 class="pv-name" id="pvName"></h1>
+          <div class="pv-rating">
+            <span id="pvStars"></span>
+            <span id="pvRatingText"></span>
+          </div>
+          <div class="pv-price">
+            <b id="pvPriceMain">0 ₮</b>
+            <span id="pvPriceSize"></span>
+          </div>
+          <p class="pv-desc" id="pvDesc"></p>
+
+          <div class="pv-block">
+            <label for="pvSizes">Лонхны хэмжээ сонгох</label>
+            <div class="size-row" id="pvSizes"></div>
+          </div>
+
+          <div class="pv-block pv-row">
+            <div>
+              <label style="display:block; margin-bottom:10px;">Тоо ширхэг</label>
+              <div class="qty">
+                <button type="button" id="qtyDec" aria-label="Хасах">−</button>
+                <span id="qtyValue">1</span>
+                <button type="button" id="qtyInc" aria-label="Нэмэх">+</button>
+              </div>
+            </div>
+          </div>
+
+          <div class="pv-actions">
+            <button class="btn btn-gold btn-xl" id="pvAddCart" type="button">
+              <svg viewBox="0 0 24 24" width="18" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"><path d="M6 7h12l1 13H5L6 7z"/><path d="M9 7a3 3 0 0 1 6 0"/><path d="M12 11v5M9.5 13.5h5"/></svg>
+              Сагсанд нэмэх
+            </button>
+            <button class="btn btn-ghost btn-xl pv-wish-btn" id="pvWish" type="button">
+              Хүслийн жагсаалтад хадгалах
+            </button>
+            <button class="btn btn-dark btn-xl pv-admin-btn" id="pvAdminEdit" type="button" style="display:none;">
+              <svg viewBox="0 0 24 24" width="16" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"><path d="M4 20l4.5-1L20 7.5 16.5 4 5 15.5 4 20z"/></svg>
+              Засах (Админ)
+            </button>
+          </div>
+
+          <div class="pv-meta">
+            <div><b>Код</b><span id="pvMetaCode"></span></div>
+            <div><b>Концентраци</b><span id="pvMetaConc"></span></div>
+            <div><b>Үнэрийн гэр бүл</b><span id="pvMetaFam"></span></div>
+            <div><b>Төрөл / Хүйс</b><span id="pvMetaGender"></span></div>
+          </div>
+        </div>
+      </section>
+
+      <!-- ======= Үнэрийн пирамид ба үзүүлэлт ======= -->
+      <section class="section" id="pyramidWrap" style="padding-top:10px;">
+        <p class="eyebrow">Үнэрийн бүтэц</p>
+        <h2 class="section-title">Үнэрийн <span class="gold">пирамид</span></h2>
+        <p class="section-sub">Лонх нээгдэх мөчийн сэвгэлээс эхлээд эцсийн гүн урт мөр хүртэл — эхний 15 минутаас 12+ цагийн тансаг аялал.</p>
+
+        <div class="pyramid lux">
+          <div class="pyr-card reveal" data-rank="I">
+            <span class="pyr-ico" data-tip="Эхний 15 минутанд үнэртэх сэнгэнэсэн үнэр">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="4.2"/><path d="M12 2v2.4M12 19.6V22M2 12h2.4M19.6 12H22M4.9 4.9l1.8 1.8M17.3 17.3l1.8 1.8M19.1 4.9l-1.8 1.8M6.7 17.3l-1.8 1.8"/></svg>
+            </span>
+            <span class="pyr-time">0 – 15 минут</span>
+            <h4>Толгой ноот</h4>
+            <p class="pyr-desc">Эхний 15 минутанд үнэртэх сэнгэнэсэн, хурц дүүрэг үнэр — таны анхны сэтэгдэл.</p>
+            <p class="pyr-notes" id="pyrTop"></p>
+            <span class="pyr-bar" style="--w:26%"><i></i></span>
+          </div>
+          <div class="pyr-card reveal" data-rank="II">
+            <span class="pyr-ico" data-tip="Үнэртний гол амин сүнс — 2–4 цагийн турш">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"><path d="M12 20s-7.5-4.6-9.3-9A5.2 5.2 0 0 1 12 7.6 5.2 5.2 0 0 1 21.3 11C19.5 15.4 12 20 12 20z"/></svg>
+            </span>
+            <span class="pyr-time">2 – 4 цаг</span>
+            <h4>Зүрхэн ноот</h4>
+            <p class="pyr-desc">Үнэртний гол амин сүнс — 2–4 цагийн баягалт зүрхэнд тоглох гэрэлт хэсэг.</p>
+            <p class="pyr-notes" id="pyrMid"></p>
+            <span class="pyr-bar" style="--w:58%"><i></i></span>
+          </div>
+          <div class="pyr-card reveal" data-rank="III">
+            <span class="pyr-ico" data-tip="Арьсан дээр 6–12+ цаг үлдэх гүн үнэр">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"><path d="M12 3c3.6 4.2 5.6 7 5.6 9.8a5.6 5.6 0 0 1-11.2 0C6.4 10 8.4 7.2 12 3z"/></svg>
+            </span>
+            <span class="pyr-time">6 – 12+ цаг</span>
+            <h4>Суурь ноот</h4>
+            <p class="pyr-desc">Арьсан дээр 6–12+ цаг үлдэх гүн урт мөр — тансаг компанийн гүн гарын үсэг.</p>
+            <p class="pyr-notes" id="pyrBase"></p>
+            <span class="pyr-bar" style="--w:100%"><i></i></span>
+          </div>
+        </div>
+
+        <!-- ======= Үнэрийн хэмнэл ба үзүүлэлт ======= -->
+        <div class="accords-band reveal">
+          <div class="ab-head">
+            <p class="eyebrow">Үзүүлэлт</p>
+            <h3>Үнэрийн хэмнэл ба үзүүлэлт</h3>
+          </div>
+          <div class="accord-row">
+            <span class="al">Тогтоц</span>
+            <div class="track"><i id="accLongF"></i></div>
+            <span class="av" id="accLong"></span>
+          </div>
+          <div class="accord-row">
+            <span class="al">Түгэлт / Мөр</span>
+            <div class="track"><i id="accSilF"></i></div>
+            <span class="av" id="accSil"></span>
+          </div>
+          <div class="season-block">
+            <div class="sb-row" id="seasonRow">
+              <b>Тохирох улирал</b>
+              <span class="season-chip" data-season="Өвөл">
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round"><path d="M12 2v20M2 12h20M5 5l14 14M19 5L5 19"/></svg>
+                Өвөл
+              </span>
+              <span class="season-chip" data-season="Хавар">
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"><path d="M5 19C5 9 13 5 20 5c-1 8-5 14-13 14h-2z"/><path d="M5 19c3-6 7-9 11-11"/></svg>
+                Хавар
+              </span>
+              <span class="season-chip" data-season="Зун">
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round"><circle cx="12" cy="12" r="4.2"/><path d="M12 2v2.4M12 19.6V22M2 12h2.4M19.6 12H22M4.9 4.9l1.8 1.8M17.3 17.3l1.8 1.8M19.1 4.9l-1.8 1.8M6.7 17.3l-1.8 1.8"/></svg>
+                Зун
+              </span>
+              <span class="season-chip" data-season="Намар">
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"><path d="M6 15c4 0 8-2 10-6M6 15H3m3 0 4 5M14 7l3-3M17 10l4-1"/></svg>
+                Намар
+              </span>
+            </div>
+            <div class="sb-row" id="occRow">
+              <b>Тохирох цаг</b>
+              <span class="season-chip" data-occ="Өдөр">
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round"><circle cx="12" cy="12" r="4.2"/><path d="M12 2v2.4M12 19.6V22M2 12h2.4M19.6 12H22M4.9 4.9l1.8 1.8M17.3 17.3l1.8 1.8M19.1 4.9l-1.8 1.8M6.7 17.3l-1.8 1.8"/></svg>
+                Өдөр
+              </span>
+              <span class="season-chip" data-occ="Оройн гоёл">
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"><path d="M20 13.5A8 8 0 0 1 10.5 4 8 8 0 1 0 20 13.5z"/></svg>
+                Оройн гоёл
+              </span>
+            </div>
+          </div>
+        </div>
+
+        <!-- ======= Найрлагын түүх ======= -->
+        <div class="story-band reveal">
+          <span class="story-quote">«</span>
+          <div>
+            <p class="eyebrow">Найрлагын түүх</p>
+            <h3>Гүн түүхээс төрсөн тансаг найрлага</h3>
+            <p id="storyText" class="story-text"></p>
+          </div>
+        </div>
+      </section>
+
+      <!-- ======= Ижил төстэй ======= -->
+      <section class="section" id="relatedWrap" style="padding-top:30px;">
+        <p class="eyebrow">Дараагийн сонголт</p>
+        <h2 class="section-title">Ижил <span class="gold">төстэй</span> үнэртэнүүд</h2>
+        <div class="product-grid" id="relatedGrid" style="margin-top:30px;"></div>
+      </section>
+    </div>
+  </main>
+
+  <!-- ======= Footer ======= -->
+  <footer class="site-footer">
+    <div class="container footer-grid">
+      <div class="f-col f-about">
+        <a class="logo" href="index.html"><span class="logo-mark"></span><span class="logo-name">НорВэ</span></a>
+        <p>Дэлхийн тансаг үнэртний брэндүүдийг эх бүтээгдэхүүний баталгаатайгаар Монголд санал болгодог тансаг ботик.</p>
+        <div class="f-contact">
+          <span><b>Хаяг:</b> Улаанбаатар, Сүхбаатар дүүрэг, 1 хороо</span>
+          <span><b>Утас:</b> 7701-2020</span>
+          <span><b>Ажлын цаг:</b> Даваа–Бямба, 10:00–20:00</span>
+        </div>
+      </div>
+      <div class="f-col">
+        <h4>Хуудсууд</h4>
+        <ul>
+          <li><a href="index.html">Нүүр хуудас</a></li>
+          <li><a href="catalog.html">Бүх үнэртэн</a></li>
+          <li><a href="catalog.html#brands">Брэндүүд</a></li>
+          <li><a href="account.html">Хэрэглэгчийн булан</a></li>
+          <li><a href="checkout.html">Захиалга хийх</a></li>
+        </ul>
+      </div>
+      <div class="f-col">
+        <h4>Дэмжлэг</h4>
+        <ul>
+          <li><a href="#">Хүргэлтийн нөхцөл</a></li>
+          <li><a href="#">Буцаан авах нөхцөл</a></li>
+          <li><a href="#">Нууцлалын бодлого</a></li>
+          <li><a href="#">Үйлчилгээний нөхцөл</a></li>
+        </ul>
+      </div>
+      <div class="f-col f-news">
+        <h4>Мэдээ хүлээн авах</h4>
+        <p>Шинэ үнэртэн болон хямдралын мэдээг хамгийн түрүүнд хүлээн авахыг хүсвэл:</p>
+        <form id="newsletterForm" autocomplete="off">
+          <input type="email" id="newsletterInput" placeholder="И-мэйл хаягаа оруулна уу" aria-label="И-мэйл">
+          <button type="submit" aria-label="Бүртгүүлэх">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"><path d="M22 2L11 13M22 2l-7 20-4-9-9-4 20-7z"/></svg>
+          </button>
+        </form>
+      </div>
+    </div>
+    <div class="footer-bottom">© 2026 НорВэ ХХК — Бүх эрх хуулиар хамгаалагдсан.</div>
+  </footer>
+
+  <!-- ======= Сагсны drawer ======= -->
+  <div class="overlay" id="drawerOverlay"></div>
+  <aside class="cart-drawer" id="cartDrawer" aria-hidden="true">
+    <div class="cd-head">
+      <h3>
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"><path d="M6 7h12l1 13H5L6 7z"/><path d="M9 7a3 3 0 0 1 6 0"/></svg>
+        Сагс
+      </h3>
+      <button class="icon-btn" id="cartCloseBtn" aria-label="Сагс хаах">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round"><path d="M6 6l12 12M18 6L6 18"/></svg>
+      </button>
+    </div>
+    <div class="cd-items" id="cartItems"></div>
+    <div class="cd-foot" id="cartFooter"></div>
+  </aside>
+  <div class="toast-stack" id="toastStack"></div>
+
+</body>
+</html>

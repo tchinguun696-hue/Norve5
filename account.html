@@ -1,0 +1,362 @@
+<!DOCTYPE html>
+<html lang="mn">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Хэрэглэгчийн булан — НорВэ</title>
+  <meta name="description" content="Нэвтрэх, бүртгүүлэх, хадгалсан үнэртэн, захиалгын түүх — Хэрэглэгчийн бүрэн булан.">
+  <link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 64 64'%3E%3Crect width='64' height='64' rx='12' fill='%230b0b0e'/%3E%3Ctext x='32' y='46' font-family='Georgia,serif' font-size='36' fill='%23d4af37' text-anchor='middle'%3EН%3C/text%3E%3C/svg%3E">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@300;400;500;600;700&family=Playfair+Display:ital,wght@0,400;0,500;0,600;0,700;1,500&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="style.css">
+  <script src="script.js" defer></script>
+</head>
+<body data-page="account">
+  <div class="nv-curtain" aria-hidden="true"><span class="nv-line"></span><span class="nv-word">НорВэ</span></div>
+
+  <!-- ======= Толгой (нэвигаци) ======= -->
+  <header class="site-header" id="siteHeader">
+    <div class="container header-inner">
+      <button class="nav-toggle" id="navToggle" aria-label="Цэс нээх"><span></span></button>
+      <a class="logo" href="index.html"><span class="logo-mark"></span><span class="logo-name">НорВэ</span></a>
+      <nav class="main-nav" id="mainNav">
+        <a href="index.html">Нүүр</a>
+        <a href="catalog.html">Бүх үнэртэн</a>
+        <a href="catalog.html#brands">Брэндүүд</a>
+        <a href="account.html">Хэрэглэгч</a>
+      </nav>
+      <form class="nav-search" id="navSearchForm" role="search" autocomplete="off">
+        <input type="text" id="navSearchInput" placeholder="Үнэртэн, брэндээр хайх..." aria-label="Хайх">
+        <button type="submit" aria-label="Хайх">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round"><circle cx="11" cy="11" r="7"/><path d="M21 21l-4.3-4.3"/></svg>
+        </button>
+      </form>
+      <div class="header-actions">
+        <a class="icon-btn" href="account.html" aria-label="Хэрэглэгчийн булан">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="8" r="4"/><path d="M4 21c1.5-4 5-5.5 8-5.5S18.5 17 20 21"/></svg>
+        </a>
+        <button class="icon-btn" id="cartOpenBtn" aria-label="Сагс нээх">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"><path d="M6 7h12l1 13H5L6 7z"/><path d="M9 7a3 3 0 0 1 6 0"/></svg>
+          <span class="cart-count" id="cartCount">0</span>
+        </button>
+      </div>
+    </div>
+  </header>
+
+  <main>
+    <section class="page-head">
+      <div class="container">
+        <h1>Хэрэглэгчийн <span class="gold">булан</span></h1>
+        <p>Нэвтэрч, захиалга болон хадгалсан үнэртнээ хамтдаа удирдаарай.</p>
+      </div>
+    </section>
+
+    <!-- ======= Нэвтрэх / Бүртгүүлэх ======= -->
+    <div class="auth-wrap container" id="authWrap">
+      <div class="auth-card">
+        <div class="auth-tabs">
+          <button type="button" class="active" data-tab="login">Нэвтрэх</button>
+          <button type="button" data-tab="register">Бүртгүүлэх</button>
+        </div>
+
+        <form class="auth-form active" id="loginForm" novalidate>
+          <div class="field">
+            <label for="lEmail">И-мэйл хаяг</label>
+            <input type="email" id="lEmail" placeholder="И-мэйл хаягаа оруулна уу" autocomplete="email">
+          </div>
+          <div class="field">
+            <label for="lPass">Нууц үг</label>
+            <input type="password" id="lPass" placeholder="••••••••" autocomplete="current-password">
+          </div>
+          <div class="a-extra">
+            <span>Нууц үгээ мартсан уу?</span>
+            <button type="button" id="forgotBtn">Сэргээх</button>
+          </div>
+          <button class="btn btn-gold btn-wide" type="submit">Нэвтрэх</button>
+          <p class="a-switch">Одоогоор бүртгэл байхгүй юу? <button type="button" id="goRegister">Бүртгүүлэх</button></p>
+        </form>
+
+        <form class="auth-form" id="registerForm" novalidate>
+          <div class="form-grid">
+            <div class="field">
+              <label for="rLast">Овог</label>
+              <input type="text" id="rLast" placeholder="Дорж" autocomplete="family-name">
+            </div>
+            <div class="field">
+              <label for="rFirst">Нэр</label>
+              <input type="text" id="rFirst" placeholder="Батаа" autocomplete="given-name">
+            </div>
+          </div>
+          <div class="field">
+            <label for="rEmail">И-мэйл хаяг</label>
+            <input type="email" id="rEmail" placeholder="norve@mail.mn" autocomplete="email">
+          </div>
+          <div class="field">
+            <label for="rPhone">Утасны дугаар</label>
+            <input type="tel" id="rPhone" placeholder="99112233" maxlength="8" autocomplete="tel">
+          </div>
+          <div class="field">
+            <label for="rPass">Нууц үг</label>
+            <input type="password" id="rPass" placeholder="Хамгийн багадаа 6 тэмдэгт" autocomplete="new-password">
+          </div>
+          <div class="field">
+            <label for="rPass2">Нууц үг давтах</label>
+            <input type="password" id="rPass2" placeholder="••••••••" autocomplete="new-password">
+          </div>
+          <label class="check" style="margin:16px 0 22px;">
+            <input type="checkbox" id="rAgree">
+            <span class="box"></span>
+            <span class="txt">Үйлчилгээний нөхцөл ба нууцлалын бодлого зөвшөөрч байна</span>
+          </label>
+          <button class="btn btn-gold btn-wide" type="submit">Бүртгүүлэх</button>
+          <p class="a-switch">Аль хэдийн данстай юу? <button type="button" id="goLogin">Нэвтрэх</button></p>
+        </form>
+      </div>
+    </div>
+
+    <!-- ======= Профайл dashboard ======= -->
+    <div class="container profile-layout" id="profileLayout" style="display:none;">
+      <aside class="profile-side">
+        <div class="avatar" id="pAvatar">N</div>
+        <h3 id="pfName">Хэрэглэгч</h3>
+        <p class="p-mail" id="pfMail"></p>
+        <button class="p-nav-toggle" id="pNavToggle" type="button" aria-expanded="false" aria-controls="pNav">
+          Профайлын цэс нээх
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"><path d="M6 9l6 6 6-6"/></svg>
+        </button>
+        <span class="p-badge" id="pScentBadge"></span>
+        <nav class="p-nav">
+          <button type="button" class="active" data-pane="profile">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="8" r="4"/><path d="M4 21c1.5-4 5-5.5 8-5.5S18.5 17 20 21"/></svg>
+            Профайл
+          </button>
+          <button type="button" data-pane="settings" style="display:none;">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="3.2"/><path d="M12 2.8v2.6M12 18.6v2.6M2.8 12h2.6M18.6 12h2.6M5.5 5.5l1.8 1.8M16.7 16.7l1.8 1.8M18.5 5.5l-1.8 1.8M7.3 16.7l-1.8 1.8"/></svg>
+            Тохиргоо
+          </button>
+          <button type="button" data-pane="orders">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"><path d="M6 7h12l1 13H5L6 7z"/><path d="M9 7a3 3 0 0 1 6 0"/></svg>
+            Захиалгын түүх
+          </button>
+          <button type="button" data-pane="wish">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"><path d="M12 20s-7.5-4.6-9.3-9A5.2 5.2 0 0 1 12 7.6 5.2 5.2 0 0 1 21.3 11C19.5 15.4 12 20 12 20z"/></svg>
+            Хадгалсан үнэртэн
+          </button>
+          <button type="button" data-pane="addr">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"><path d="M12 21s7-6.2 7-11a7 7 0 1 0-14 0c0 4.8 7 11 7 11z"/><circle cx="12" cy="10" r="2.4"/></svg>
+            Хаягууд
+          </button>
+          <button type="button" class="p-logout" id="logoutBtn">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"><path d="M9 21H6a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h3M16 8l5 4-5 4M21 12H9"/></svg>
+            Гарах
+          </button>
+        </nav>
+      </aside>
+
+      <div>
+        <!-- Профайл -->
+        <section class="profile-pane active card-box" id="pane-profile">
+          <h2>Профайлын мэдээлэл</h2>
+          <p class="cb-sub">Таны өөрийн гарын үсэг — Овог, Нэр, аватар болон холбоо барихаа эндээс тохируулаарай.</p>
+
+          <div class="avatar-editor">
+            <div class="avatar big"><span id="avPreview">N</span></div>
+            <div class="av-controls">
+              <b>Профайл зураг</b>
+              <p>Локал зураг (файл) шууд оруулж болно.</p>
+              <label class="btn btn-dark av-btn" for="avFile">
+                <svg viewBox="0 0 24 24" width="14" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"><path d="M4 20l4.5-1L20 7.5 16.5 4 5 15.5 4 20z"/></svg>
+                Зураг оруулах
+                <input type="file" id="avFile" accept="image/*" hidden>
+              </label>
+              <div class="av-url-row">
+                <input type="text" id="avUrl" placeholder="https://... зураг URL">
+                <button class="btn btn-ghost av-btn" id="avUrlSave" type="button">Хадгалах</button>
+              </div>
+            </div>
+          </div>
+
+          <form id="profileForm" class="form-grid" style="margin-bottom:30px;">
+            <div class="field">
+              <label for="pLast">Овог</label>
+              <input type="text" id="pLast">
+            </div>
+            <div class="field">
+              <label for="pFirst">Нэр</label>
+              <input type="text" id="pFirst">
+            </div>
+            <div class="field">
+              <label for="pPhone">Утасны дугаар</label>
+              <input type="tel" id="pPhone" maxlength="8">
+            </div>
+            <div class="field">
+              <label for="pEmail">И-мэйл</label>
+              <input type="email" id="pEmail">
+            </div>
+            <div class="full">
+              <button class="btn btn-gold" type="submit">Хадгалах</button>
+            </div>
+          </form>
+          <div class="info-list">
+            <div><b>Байнгын хаяг</b><span id="pfEmail"></span></div>
+            <div><b>Бүртгүүлсэн огноо</b><span id="pfJoined"></span></div>
+          </div>
+        </section>
+
+        <!-- Тохиргоо -->
+        <section class="profile-pane card-box" id="pane-settings">
+          <h2>Тохиргоо</h2>
+          <p class="cb-sub">Нууц үг, мэдэгдэл болон үнэртний хувийн тохиргоо — бүгд нэг цонхонд.</p>
+
+          <div class="set-block">
+            <h3>Нууц үг солих</h3>
+            <p class="cb-sub">Ирээдүйд дансны хамгаалалтаа сайтар шалгаарай.</p>
+            <form id="passForm" class="form-grid" novalidate>
+              <div class="field full">
+                <label for="sCurPass">Одоогийн нууц үг</label>
+                <input type="password" id="sCurPass" placeholder="••••••••" autocomplete="current-password">
+              </div>
+              <div class="field">
+                <label for="sNewPass">Шинэ нууц үг</label>
+                <input type="password" id="sNewPass" placeholder="Хамгийн багадаа 6 тэмдэгт" autocomplete="new-password">
+              </div>
+              <div class="field">
+                <label for="sNewPass2">Шинэ нууц үг давтах</label>
+                <input type="password" id="sNewPass2" placeholder="••••••••" autocomplete="new-password">
+              </div>
+              <div class="full"><button class="btn btn-gold" type="submit">Солих</button></div>
+            </form>
+          </div>
+
+          <div class="set-block">
+            <h3>Мэдэгдлийн тохиргоо</h3>
+            <p class="cb-sub">Таны хүслээр илгээх мэдэгдлүүдийг сонгоно уу.</p>
+            <div id="notifToggles" class="toggle-list"></div>
+          </div>
+
+          <div class="set-block">
+            <h3>Үнэрийн хувийн тохиргоо</h3>
+            <p class="cb-sub">Дурлалын үнэрний гэр бүлээ сонгосоноор бэдж бүтээгдэнэ.</p>
+            <div class="scent-badge-row"><span class="p-badge big" id="scentBadgeTxt"></span></div>
+            <div class="chip-row" id="scentPick"></div>
+          </div>
+        </section>
+
+        <!-- Захиалгын түүх -->
+        <section class="profile-pane card-box" id="pane-orders">
+          <h2>Захиалгын түүх</h2>
+          <p class="cb-sub">Таны хийсэн захиалга бүрийн дэлгэрэнгүй мэдээлэл.</p>
+          <div id="ordersList"></div>
+        </section>
+
+        <!-- Хадгалсан үнэртэн -->
+        <section class="profile-pane card-box" id="pane-wish">
+          <h2>Хадгалсан үнэртэн</h2>
+          <p class="cb-sub">Таны хүслийн жагсаалтад хадгалсан үнэртнүүд.</p>
+          <div class="wl-grid" id="wishGrid"></div>
+        </section>
+
+        <!-- Хаягууд -->
+        <section class="profile-pane card-box" id="pane-addr">
+          <h2>Хадгалсан хаягууд</h2>
+          <p class="cb-sub">Захиалга хийхэд дүүргэлтээр шууд ашиглах хаягийн сан — нэмэх, өөрчлөх, хасах боломжтой.</p>
+          <div id="addrList"></div>
+          <div class="addr-add">
+            <h3 id="addrTitle">Шинэ хаяг нэмэх</h3>
+            <form id="addrAddForm" class="form-grid" novalidate>
+              <div class="field">
+                <label for="aLabel">Хаягийн нэр</label>
+                <input type="text" id="aLabel" placeholder="Гэр / Ажил">
+              </div>
+              <div class="field">
+                <label for="aCity">Хот / Аймаг</label>
+                <select id="aCity"></select>
+              </div>
+              <div class="field">
+                <label for="aDistrict">Дүүрэг / Сум</label>
+                <input type="text" id="aDistrict" placeholder="Сүхбаатар">
+              </div>
+              <div class="field">
+                <label for="aKhoroo">Хороо / Баг</label>
+                <input type="text" id="aKhoroo" placeholder="1-р хороо">
+              </div>
+              <div class="field">
+                <label for="aDetail">Байр, тоот</label>
+                <input type="text" id="aDetail" placeholder="17-р байр, 3 тоот">
+              </div>
+              <div class="full addr-actions-row">
+                <button class="btn btn-gold" type="submit">Хаяг хадгалах</button>
+                <button class="btn btn-ghost hidden" id="addrCancelBtn" type="button">Болих</button>
+              </div>
+            </form>
+          </div>
+        </section>
+      </div>
+    </div>
+  </main>
+
+  <!-- ======= Footer ======= -->
+  <footer class="site-footer">
+    <div class="container footer-grid">
+      <div class="f-col f-about">
+        <a class="logo" href="index.html"><span class="logo-mark"></span><span class="logo-name">НорВэ</span></a>
+        <p>Дэлхийн тансаг үнэртний брэндүүдийг эх бүтээгдэхүүний баталгаатайгаар Монголд санал болгодог тансаг ботик.</p>
+        <div class="f-contact">
+          <span><b>Хаяг:</b> Улаанбаатар, Сүхбаатар дүүрэг, 1 хороо</span>
+          <span><b>Утас:</b> 7701-2020</span>
+          <span><b>Ажлын цаг:</b> Даваа–Бямба, 10:00–20:00</span>
+        </div>
+      </div>
+      <div class="f-col">
+        <h4>Хуудсууд</h4>
+        <ul>
+          <li><a href="index.html">Нүүр хуудас</a></li>
+          <li><a href="catalog.html">Бүх үнэртэн</a></li>
+          <li><a href="catalog.html#brands">Брэндүүд</a></li>
+          <li><a href="account.html">Хэрэглэгчийн булан</a></li>
+          <li><a href="checkout.html">Захиалга хийх</a></li>
+        </ul>
+      </div>
+      <div class="f-col">
+        <h4>Дэмжлэг</h4>
+        <ul>
+          <li><a href="#">Хүргэлтийн нөхцөл</a></li>
+          <li><a href="#">Буцаан авах нөхцөл</a></li>
+          <li><a href="#">Нууцлалын бодлого</a></li>
+          <li><a href="#">Үйлчилгээний нөхцөл</a></li>
+        </ul>
+      </div>
+      <div class="f-col f-news">
+        <h4>Мэдээ хүлээн авах</h4>
+        <p>Шинэ үнэртэн болон хямдралын мэдээг хамгийн түрүүнд хүлээн авахыг хүсвэл:</p>
+        <form id="newsletterForm" autocomplete="off">
+          <input type="email" id="newsletterInput" placeholder="И-мэйл хаягаа оруулна уу" aria-label="И-мэйл">
+          <button type="submit" aria-label="Бүртгүүлэх">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"><path d="M22 2L11 13M22 2l-7 20-4-9-9-4 20-7z"/></svg>
+          </button>
+        </form>
+      </div>
+    </div>
+    <div class="footer-bottom">© 2026 НорВэ ХХК — Бүх эрх хуулиар хамгаалагдсан.</div>
+  </footer>
+
+  <!-- ======= Сагсны drawer ======= -->
+  <div class="overlay" id="drawerOverlay"></div>
+  <aside class="cart-drawer" id="cartDrawer" aria-hidden="true">
+    <div class="cd-head">
+      <h3>
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"><path d="M6 7h12l1 13H5L6 7z"/><path d="M9 7a3 3 0 0 1 6 0"/></svg>
+        Сагс
+      </h3>
+      <button class="icon-btn" id="cartCloseBtn" aria-label="Сагс хаах">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round"><path d="M6 6l12 12M18 6L6 18"/></svg>
+      </button>
+    </div>
+    <div class="cd-items" id="cartItems"></div>
+    <div class="cd-foot" id="cartFooter"></div>
+  </aside>
+  <div class="toast-stack" id="toastStack"></div>
+
+</body>
+</html>

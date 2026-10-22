@@ -1,0 +1,39 @@
+{
+  "meta": {
+    "createdAt": "2026-10-22T11:48:36.775Z",
+    "version": 2
+  },
+  "settings": {
+    "orderPrefix": "NRV-",
+    "orderNext": 100001,
+    "shipping": {
+      "normal": 10000,
+      "express": 15000
+    },
+    "paymentMethods": [
+      "qpay",
+      "card",
+      "bank",
+      "cash"
+    ]
+  },
+  "admins": [
+    {
+      "id": "admin-1",
+      "email": "admin@norve.mn",
+      "name": "НорВэ Админ",
+      "role": "admin",
+      "joinedAt": "2026-10-22T11:48:36.776Z",
+      "salt": "c498135c922f8704f91f4a8f227589a4",
+      "passHash": "7ef6db6cdcef602a4ee8235f4d56d09f0d00e08ede9d1221110b16ae43888e41"
+    }
+  ],
+  "users": [],
+  "orders": [],
+  "_base": [],
+  "catalogSynced": false,
+  "productOverrides": {},
+  "customProducts": [],
+  "brandsInfo": [],
+  "audit": []
+}
